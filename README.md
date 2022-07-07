@@ -1,6 +1,9 @@
 # IHC_TIME
 Tumour regions semantic segmentation and cell nucleus instance segmentation
 
+the models are available in here: 
+
+[<img src="https://zenodo.org/badge/DOI/10.5281/zenodo.6806312.svg">](https://zenodo.org/badge/DOI/10.5281/zenodo.6806312)
 
 .<br/>
 ├── parenchyma-stroma/<br/>
