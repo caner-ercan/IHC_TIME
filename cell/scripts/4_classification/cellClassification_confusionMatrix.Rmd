@@ -1,0 +1,106 @@
+---
+title: "cellClassifier_confMatrix"
+author: "Caner"
+date: "13 6 2022"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r cars}
+
+library(rlist)
+library(caret)
+library(ggplot2)
+library(vcd)
+library(dplyr)
+
+
+
+round_df <- function(df, digits) {
+  nums <- vapply(df, is.numeric, FUN.VALUE = logical(1))
+
+  df[,nums] <- round(df[,nums], digits = digits)
+
+  (df)
+}
+
+```
+
+
+
+```{r pressure, echo=FALSE}
+
+classifierName= "77_2"
+dataFolder = paste0("C:/Users/Caner/Desktop/cell_classification_220608/validation/",classifierName)
+data_files <- list.files(dataFolder)
+
+my_data <- list()
+for (i in seq_along(data_files)) {
+  my_data[[i]] <- read.delim(file.path(dataFolder, data_files[i]))
+  my_data[[i]] <- subset(my_data[[i]], Parent == "Immune cells" |Parent ==  "Other")
+  
+}
+
+ImageTotal <- list.rbind(my_data)
+ImageTotal$Parent <- droplevels(ImageTotal$Parent)
+
+
+
+
+```
+
+```{r}
+confMat <- confusionMatrix(reference = ImageTotal$Parent, data = ImageTotal$Class)
+confMat
+mosaic(confMat$table, labeling = labeling_values,
+       pop = F, shade = T, colorize = T, 
+       gp = gpar(fill = matrix(c("grey", "#756bb1", "#756bb1", "grey"), 2, 2)))
+```
+
+
+```{r}
+metricsTable <- data.frame(matrix(ncol = 8, nrow = 0))
+colNames = c("imageName", "accuracy", "Kappa", "Sensitivity", "Specifity", "balancedAccuracy", "Immune > Other", "Other > Immune")
+colnames(metricsTable) <- colNames
+                           
+
+for (image in my_data) {
+  image$Parent <- droplevels(image$Parent)
+  
+  confMat <- confusionMatrix(reference = image$Parent, data = image$Class)
+  
+  #imageName <- as.character(image$Image[1])
+  imageName <- levels(image$Image)[1]
+  imageName <- substr(imageName,1,nchar(imageName)-5)
+  
+  mosaic(confMat$table, labeling = labeling_values,
+       pop = F, shade = T, colorize = T, 
+       gp = gpar(fill = matrix(c("grey", "#756bb1", "#756bb1", "grey"), 2, 2)),
+       main=imageName )
+  
+
+  metricsTable[nrow(metricsTable) + 1,] = c(imageName, 
+                                            confMat[["overall"]][["Accuracy"]], 
+                                            confMat[["overall"]][["Kappa"]], 
+                                            confMat[["byClass"]][["Sensitivity"]], 
+                                            confMat[["byClass"]][["Specificity"]],
+                                            confMat[["byClass"]][["Balanced Accuracy"]],
+                                            confMat[["table"]][2,1],
+                                            confMat[["table"]][1,2]
+                                            )
+}
+metricsTable[,2:6] <- metricsTable[,2:6] %>% mutate_if(is.character,as.numeric)
+metricsTable[,7:8] <- metricsTable[,7:8] %>% mutate_if(is.character,as.integer)
+round_df(metricsTable, digits=3)
+
+```
+
+
+
