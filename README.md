@@ -5,45 +5,47 @@ the models are available in here:
 
 [<img src="https://zenodo.org/badge/DOI/10.5281/zenodo.6806312.svg">](https://zenodo.org/badge/DOI/10.5281/zenodo.6806312)
 
-.<br/>
-├── parenchyma-stroma/<br/>
-│&emsp;├── scripts/<br/>
-│&emsp;│&emsp;├── 1_slidePreperation/<br/>
-│&emsp;│&emsp;│&emsp;├── Tissue_segmentation.groovy<br/>
-│&emsp;│&emsp;│&emsp;├── Border_generation.groovy<br/>
-│&emsp;│&emsp;│&emsp;└── mask_control.groovy<br/>
-│&emsp;│&emsp;├── 2_slidePreperation/<br/>
-│&emsp;│&emsp;│&emsp;├── deleteEmptyTiles.ijm<br/>
-│&emsp;│&emsp;│&emsp;└── exporttilesandlabels.groovy<br/>
-│&emsp;│&emsp;├── 3_Training/<br/>
-│&emsp;│&emsp;│&emsp;├── Dataset_splitter.py<br/>
-│&emsp;│&emsp;│&emsp;├── LR_finder.py<br/>
-│&emsp;│&emsp;│&emsp;├── trainer_step1.py<br/>
-│&emsp;│&emsp;│&emsp;├── trainer_step2.py<br/>
-│&emsp;│&emsp;│&emsp;└── Inference.py<br/>
-│&emsp;│&emsp;└── 4_Prediction/<br/>
-│&emsp;│&emsp;&emsp; ├── Region_export.groovy<br/>
-│&emsp;│&emsp;&emsp; └── MaskReImport.groovy<br/>
-│&emsp;└── models/<br/>
-│&emsp;&emsp; └── parenchyma-stroma/<br/>
-│&emsp;&emsp;&emsp;  └── best_unet-resnet34_after-unfreeze-WD-1_BS32_20220317_1041.pth<br/>
-└──&nbsp;cell_detection/
-&emsp;&nbsp;├──&nbsp;scripts/<br/>
-&emsp;&nbsp;│&emsp;├──&nbsp;1_dataPreperation/<br/>
-&emsp;&nbsp;│&emsp;│&emsp;├──&nbsp;cell_annotation_export.groovy<br/>
-&emsp;&nbsp;│&emsp;│&emsp;└──&nbsp;data.ipynb<br/>
-&emsp;&nbsp;│&emsp;├──&nbsp;2_training/&ensp;<br/>
-&emsp;&nbsp;│&emsp;│&emsp;├──&nbsp;training.py&ensp;<br/>
-&emsp;&nbsp;│&emsp;│&emsp;└──&nbsp;Inference.ipynb&nbsp;<br/>
-&emsp;&nbsp;│&emsp;├──&nbsp;3_prediction/<br/>
-&emsp;&nbsp;│&emsp;│&emsp;└──&nbsp;stardistDetection.groovy<br/>
-&emsp;&nbsp;│&emsp;└──&nbsp;4_classification/<br/>
-&emsp;&nbsp;│&emsp;&emsp;&nbsp;├──&nbsp;run_cell_classifier.groovy<br/>
-&emsp;&nbsp;│&emsp;&emsp;&nbsp;├──&nbsp;data_export_for_confMatrix.groovy<br/>
-&emsp;&nbsp;│&emsp;&emsp;&nbsp;└──&nbsp;cellClassification_confusionMatrix.Rmd&emsp;&emsp;<br/>
-&emsp;&nbsp;└──&nbsp;models/<br/>
-&emsp;&emsp;&ensp;├── detection/<br/>
-&emsp;&emsp;&ensp;│&emsp;├── modelstardist_final_bs2_epoch800_20220527_1434.zip<br/>
-&emsp;&emsp;&ensp;│&emsp;└── stardist_final_bs2_epoch800_20220527_1434/<br/>
-&emsp;&emsp;&ensp;└── classification/<br/>
-&emsp;&emsp;&emsp;&emsp;└── cell_classifier.json<br/>
+```
+parenchyma-stroma/
+├── scripts/
+│   ├── 1_slidePreparation/
+│   │   ├── Tissue_segmentation.groovy
+│   │   ├── Border_generation.groovy
+│   │   └── mask_control.groovy
+│   ├── 2_slidePreparation/
+│   │   ├── deleteEmptyTiles.ijm
+│   │   └── exporttilesandlabels.groovy
+│   ├── 3_Training/
+│   │   ├── Dataset_splitter.py
+│   │   ├── LR_finder.py
+│   │   ├── trainer_step1.py
+│   │   ├── trainer_step2.py
+│   │   └── Inference.py
+│   └── 4_Prediction/
+│       ├── Region_export.groovy
+│       └── MaskReImport.groovy
+└── models/
+    └── parenchyma-stroma/
+        └── best_unet-resnet34_after-unfreeze-WD-1_BS32_20220317_1041.pth
+
+cell_detection/
+├── scripts/
+│   ├── 1_dataPreparation/
+│   │   ├── cell_annotation_export.groovy
+│   │   └── data.ipynb
+│   ├── 2_training/
+│   │   ├── training.py
+│   │   └── Inference.ipynb
+│   ├── 3_prediction/
+│   │   └── stardistDetection.groovy
+│   └── 4_classification/
+│       ├── run_cell_classifier.groovy
+│       ├── data_export_for_confMatrix.groovy
+│       └── cellClassification_confusionMatrix.Rmd
+└── models/
+    ├── detection/
+    │   ├── modelstardist_final_bs2_epoch800_20220527_1434.zip
+    │   └── stardist_final_bs2_epoch800_20220527_1434/
+    └── classification/
+        └── cell_classifier.json
+```
